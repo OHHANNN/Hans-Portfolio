@@ -10,5 +10,15 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  modules: ["@pinia/nuxt", "@nuxt/icon"],
+  modules: ["@pinia/nuxt", "@nuxt/icon", "@nuxtjs/i18n"],
+
+  i18n: {
+    locales: [
+      { code: "en", language: "en-US" },
+      { code: "zh", language: "zh-TW" },
+    ],
+    lazy: true,
+    langDir: "lang/", // 語言文件存放的目錄
+    defaultLocale: "en",
+  },
 });

@@ -32,9 +32,13 @@ const toggleDarkMode = () => {
         <ol class="flex gap-2 text-[#121212] dark:text-gray-300">
           <li v-for="media in sosialMedia" :key="media.id">
             <Tooltip :text="media.name" position="bottom">
-              <a :href="media.link" target="_blank" rel="noopener noreferrer">
+              <NuxtLink
+                :href="media.link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon size="20px" :name="media.iconName" />
-              </a>
+              </NuxtLink>
             </Tooltip>
           </li>
         </ol>
@@ -53,9 +57,3 @@ const toggleDarkMode = () => {
     </div>
   </header>
 </template>
-<!--
-<style scoped>
-.nav-link {
-  @apply text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition;
-}
-</style> -->
