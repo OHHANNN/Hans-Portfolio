@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="bg-white dark:bg-black">
+  <div>
     <AppHeader />
     <slot />
     <AppFooter />

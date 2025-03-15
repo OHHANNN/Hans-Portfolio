@@ -1,7 +1,9 @@
 <script setup></script>
 
 <template>
-  <div> footer</div>
+  <footer class="text-nowrap text-right px-7">
+    <div class="text-sm font-light">
+      © {{ new Date().getFullYear() }} OHHANNN . All Rights Reserved.</div
+    >
+  </footer>
 </template>
-
-<style lang="scss" scoped></style>
