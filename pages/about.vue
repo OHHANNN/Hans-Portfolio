@@ -4,7 +4,7 @@ const { t } = useI18n();
 
 <template>
   <div
-    class="min-h-200 flex items-center justify-center text-[#121212] dark:text-white"
+    class="min-h-dvh flex items-center justify-center text-[#121212] dark:text-white"
   >
     {{ t("about") }}
   </div>

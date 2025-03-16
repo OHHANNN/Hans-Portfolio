@@ -7,5 +7,5 @@
 }
 
 .nav-link.router-link-exact-active {
-  @apply text-white;
+  @apply text-gray-950 dark:text-white;
 }

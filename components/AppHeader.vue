@@ -1,6 +1,6 @@
 <script setup>
 import { useColorMode } from "@vueuse/core";
-import { computed } from "vue";
+import { computed, ref, onMounted, onUnmounted } from "vue";
 
 import navList from "~/data/navList";
 import sosialMedia from "~/data/sosialMedia";
@@ -8,6 +8,25 @@ import sosialMedia from "~/data/sosialMedia";
 const { locale, t, setLocale } = useI18n();
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
+
+const isFixed = ref(false);
+const isVisible = ref(true);
+const lastScrollY = ref(0);
+const headerHeight = ref(0);
+
+const updateHeaderState = () => {
+  const currentScrollY = window.scrollY;
+
+  if (currentScrollY < headerHeight.value) {
+    isFixed.value = false;
+    isVisible.value = true;
+  } else {
+    isFixed.value = true;
+    isVisible.value = currentScrollY < lastScrollY.value;
+  }
+
+  lastScrollY.value = currentScrollY;
+};
 
 const toggleDarkMode = () => {
   colorMode.value = isDark.value ? "" : "dark";
@@ -19,10 +38,30 @@ const toggleLanguage = () => {
 
   document.cookie = `i18n_redirected=${newLocale}; path=/; max-age=31536000`;
 };
+
+onMounted(() => {
+  const header = document.querySelector("header");
+  if (header) {
+    headerHeight.value = header.offsetHeight;
+  }
+  window.addEventListener("scroll", updateHeaderState);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", updateHeaderState);
+});
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 w-full shadow-md">
+  <header
+    id="appHeader"
+    class="w-full shadow-md transition-all duration-300"
+    :class="{
+      'fixed top-0 left-0 w-full z-50': isFixed,
+      '-translate-y-full': isFixed && !isVisible,
+      'translate-y-0': isFixed && isVisible,
+    }"
+  >
     <div class="container mx-auto flex items-center justify-between p-4">
       <!-- Logo -->
       <NuxtLink to="/" class="text-lg font-bold text-gray-800 dark:text-white">
@@ -80,4 +119,7 @@ const toggleLanguage = () => {
       </div>
     </div>
   </header>
+
+  <!-- 佔位元素，避免內容位移 -->
+  <div v-if="isFixed" :style="{ height: `${headerHeight}px` }"></div>
 </template>
