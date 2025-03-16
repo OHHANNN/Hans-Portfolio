@@ -2,6 +2,12 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
 .nav-link {
   @apply text-gray-700 dark:text-gray-400 dark:hover:text-white font-light transition;
 }

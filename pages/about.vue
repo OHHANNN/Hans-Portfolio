@@ -1,4 +1,10 @@
 <script setup>
+definePageMeta({
+  pageTransition: {
+    name: "rotate",
+  },
+});
+
 const { t } = useI18n();
 </script>
 

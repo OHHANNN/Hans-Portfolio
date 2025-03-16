@@ -55,7 +55,7 @@ onUnmounted(() => {
 <template>
   <header
     id="appHeader"
-    class="w-full shadow-md transition-all duration-300"
+    class="w-full transition-all duration-300 bg-white dark:bg-gray-950 shadow-[0_4px_10px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_10px_rgba(255,255,255,0.1)]"
     :class="{
       'fixed top-0 left-0 w-full z-50': isFixed,
       '-translate-y-full': isFixed && !isVisible,
@@ -80,21 +80,25 @@ onUnmounted(() => {
         </NuxtLink>
       </div>
 
-      <div class="flex gap-2 items-center">
+      <div class="flex gap-2 items-stretch">
         <!-- Sosial Media -->
-        <div class="flex gap-2 items-center text-[#121212] dark:text-gray-400">
-          <div v-for="media in sosialMedia" :key="media.id">
-            <Tooltip :text="media.name" position="bottom">
-              <NuxtLink
-                :href="media.link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icon size="20px" :name="media.iconName" />
-              </NuxtLink>
-            </Tooltip>
-          </div>
-        </div>
+        <Tooltip
+          v-for="media in sosialMedia"
+          :key="media.id"
+          class="text-[#121212] dark:text-gray-400"
+          :text="media.name"
+          position="bottom"
+        >
+          <NuxtLink
+            :href="media.link"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center"
+          >
+            <Icon size="20px" :name="media.iconName" />
+          </NuxtLink>
+        </Tooltip>
+
         <ClientOnly>
           <!-- language -->
           <button

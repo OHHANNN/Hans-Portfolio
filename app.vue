@@ -1,30 +1,19 @@
-<script setup>
-const { finalizePendingLocaleChange } = useI18n();
-
-const onBeforeEnter = async () => {
-  await finalizePendingLocaleChange();
-};
-</script>
+<script setup></script>
 
 <template>
   <NuxtLayout class="bg-gray-100 dark:bg-gray-950">
-    <NuxtPage
-      :transition="{
-        name: 'my',
-        mode: 'out-in',
-        onBeforeEnter,
-      }"
-    />
+    <NuxtPage />
   </NuxtLayout>
 </template>
 
 <style>
-.my-enter-active,
-.my-leave-active {
-  transition: opacity 0.3s;
+.rotate-enter-active,
+.rotate-leave-active {
+  transition: all 0.4s;
 }
-.my-enter,
-.my-leave-active {
+.rotate-enter-from,
+.rotate-leave-to {
   opacity: 0;
+  transform: rotate3d(1, 1, 1, 15deg);
 }
 </style>

@@ -67,7 +67,7 @@ function setPosition(position) {
 </script>
 
 <template>
-  <div class="relative group inline-block">
+  <div class="relative group flex items-center justify-center">
     <slot />
     <!-- Tooltip 顯示區域 -->
     <div

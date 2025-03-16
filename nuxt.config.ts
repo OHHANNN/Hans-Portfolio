@@ -2,6 +2,17 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+    head: {
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap",
+        },
+      ],
+    },
+  },
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
@@ -10,7 +21,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
-  modules: ["@pinia/nuxt", "@nuxt/icon", "@nuxtjs/i18n"],
+  modules: ["@pinia/nuxt", "@nuxt/icon", "@nuxtjs/i18n", "@nuxt/image"],
 
   i18n: {
     locales: [
