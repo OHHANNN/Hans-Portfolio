@@ -14,11 +14,17 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: "en", language: "en-US" },
-      { code: "zh", language: "zh-TW" },
+      { code: "en", language: "en-US", name: "en", file: "en.json" },
+      { code: "zh", language: "zh-TW", name: "zh", file: "zh.json" },
     ],
     lazy: true,
-    langDir: "lang/", // 語言文件存放的目錄
     defaultLocale: "en",
+    strategy: "no_prefix", // 不要在 URL 加上 /en 或 /zh
+    skipSettingLocaleOnNavigate: true,
+    detectBrowserLanguage: {
+      useCookie: true, // 保存用戶選擇的語言到 cookie 中
+      cookieKey: "i18n_redirected", // 設置 cookie 的名稱
+      alwaysRedirect: false, // 根據瀏覽器語言自動切換
+    },
   },
 });

@@ -1,16 +1,30 @@
 <script setup>
-import { useColorMode } from "@vueuse/core";
+const { finalizePendingLocaleChange } = useI18n();
 
-const colorMode = useColorMode();
+const onBeforeEnter = async () => {
+  await finalizePendingLocaleChange();
+};
 </script>
 
 <template>
-  <div
-    :class="{ dark: colorMode === 'dark' }"
-    class="bg-white dark:bg-gray-950"
-  >
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <NuxtLayout class="bg-gray-100 dark:bg-gray-950">
+    <NuxtPage
+      :transition="{
+        name: 'my',
+        mode: 'out-in',
+        onBeforeEnter,
+      }"
+    />
+  </NuxtLayout>
 </template>
+
+<style>
+.my-enter-active,
+.my-leave-active {
+  transition: opacity 0.3s;
+}
+.my-enter,
+.my-leave-active {
+  opacity: 0;
+}
+</style>

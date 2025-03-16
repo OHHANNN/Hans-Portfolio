@@ -2,13 +2,22 @@
 import { useColorMode } from "@vueuse/core";
 import { computed } from "vue";
 
+import navList from "~/data/navList";
 import sosialMedia from "~/data/sosialMedia";
 
+const { locale, t, setLocale } = useI18n();
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
 
 const toggleDarkMode = () => {
   colorMode.value = isDark.value ? "" : "dark";
+};
+
+const toggleLanguage = () => {
+  const newLocale = locale.value === "en" ? "zh" : "en";
+  setLocale(newLocale);
+
+  document.cookie = `i18n_redirected=${newLocale}; path=/; max-age=31536000`;
 };
 </script>
 
@@ -21,16 +30,21 @@ const toggleDarkMode = () => {
       </NuxtLink>
 
       <!-- Menu -->
-      <nav class="hidden md:flex space-x-6">
-        <NuxtLink to="/about" class="nav-link">關於我</NuxtLink>
-        <NuxtLink to="/projects" class="nav-link">作品</NuxtLink>
-        <NuxtLink to="/contact" class="nav-link">聯絡</NuxtLink>
-      </nav>
+      <div class="hidden md:flex space-x-6">
+        <NuxtLink
+          v-for="list in navList"
+          :key="list.id"
+          :to="list.link"
+          class="nav-link"
+        >
+          {{ t(list.name) }}
+        </NuxtLink>
+      </div>
 
-      <div class="flex gap-2">
+      <div class="flex gap-2 items-center">
         <!-- Sosial Media -->
-        <ol class="flex gap-2 text-[#121212] dark:text-gray-300">
-          <li v-for="media in sosialMedia" :key="media.id">
+        <div class="flex gap-2 items-center text-[#121212] dark:text-gray-400">
+          <div v-for="media in sosialMedia" :key="media.id">
             <Tooltip :text="media.name" position="bottom">
               <NuxtLink
                 :href="media.link"
@@ -40,19 +54,29 @@ const toggleDarkMode = () => {
                 <Icon size="20px" :name="media.iconName" />
               </NuxtLink>
             </Tooltip>
-          </li>
-        </ol>
-        <!-- Dark Mode Toggle -->
-        <button
-          @click="toggleDarkMode"
-          class="flex items-center justify-center px-2 py-1 rounded-xs bg-gray-200 dark:bg-transparent"
-        >
-          <Icon
-            :name="isDark ? 'ph:moon' : 'ph:sun'"
-            size="20"
-            :class="isDark ? 'text-white' : 'text-gray-800'"
-          />
-        </button>
+          </div>
+        </div>
+        <ClientOnly>
+          <!-- language -->
+          <button
+            @click="toggleLanguage"
+            class="flex items-center justify-center px-2 py-1 rounded-xs text-gray-950 dark:text-gray-400 bg-gray-200 dark:bg-transparent"
+          >
+            {{ t(locale) }}
+          </button>
+          <!-- Dark Mode Toggle -->
+
+          <button
+            @click="toggleDarkMode"
+            class="flex items-center justify-center px-2 py-1 rounded-xs bg-gray-200 dark:bg-transparent"
+          >
+            <Icon
+              :name="isDark ? 'ph:moon' : 'ph:sun'"
+              size="20"
+              class="text-gray-950 dark:text-gray-400"
+            />
+          </button>
+        </ClientOnly>
       </div>
     </div>
   </header>
