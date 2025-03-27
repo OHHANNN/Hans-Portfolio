@@ -5,5 +5,11 @@
   "contact": "Contact",
 
   "en": "En",
-  "zh": "Zh"
+  "zh": "Zh",
+
+  "hero": {
+    "title": "Hi, I'm Hong Han Lim",
+    "subtitle": "Focused on dynamic web experiences",
+    "subheading": "Frontend Developer focused on Vue.js / Nuxt.js"
+  }
 }

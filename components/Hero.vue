@@ -1,27 +1,36 @@
 <script setup>
-import hero from "~/data/hero";
+const { t } = useI18n();
 </script>
 
 <template>
-  <div id="hero" class="py-8 h-dvh overflow-hidden relative">
+  <div
+    id="hero"
+    class="h-full md:h-[60dvh] overflow-hidden relative flex items-center"
+  >
     <div
       class="container mx-auto flex items-stretch justify-between gap-3 md:flex-row flex-col z-10"
     >
-      <div class="w-full flex items-center justify-center">
-        <NuxtImg
-          :src="hero.image"
-          :alt="hero.name"
-          class="w-6/12 h-3w-6/12 rounded-xl object-left-bottom object-contain"
-        />
+      <div class="relative w-full flex items-center justify-center">
+        <div class="relative w-6/12">
+          <NuxtImg
+            src="/img/avatar.webp"
+            :alt="t('hero.title')"
+            class="w-full h-full rounded-full object-left-bottom object-cover"
+          />
+        </div>
       </div>
 
       <div
         class="w-full flex flex-col justify-center text-[#121212] text-center md:text-left"
       >
-        <h1 class="text-5xl font-bold dark:text-gray-100">{{ hero.title }}</h1>
-        <h3 class="text-xl font-medium text-gray-500 pt-3">
-          {{ hero.subtitle }} <br />
-          {{ hero.subheading }}
+        <h1 class="text-5xl font-bold dark:text-gray-100">
+          {{ t("hero.title") }}
+        </h1>
+        <h3 class="text-2xl font-medium text-gray-500 pt-3">
+          {{ t("hero.subtitle") }} <br />
+          <span class="text-[15px]" style="letter-spacing: 3px">{{
+            t("hero.subheading")
+          }}</span>
         </h3>
       </div>
     </div>
